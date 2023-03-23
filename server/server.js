@@ -1,19 +1,28 @@
-const express = require('express')
-const cors = require('cors')
+const express = require('express'), PORT = 8000
 const app = express()
 
-const users = {
-    'user1':'user 01',
-    'user2':'user 02',
-    'user3':'user 03',
-    'user4':'user 04',
-    'user5':'user 05'
-} 
+const users = [
+    {
+        id: 1,
+        name: 'user_01',
+        age: 18
+    }, {
+        id: 2,
+        name: 'user_02',
+        age: 28
+    }, {
+        id: 3,
+        name: 'user_03',
+        age: 38
+    }, {
+        id: 4,
+        name: 'user_04',
+        age: 48
+    }
+]
 
-
-app.get("/api", (req, res) => {
-    res.json({'users':['user01', 'user02', 'user03']})
+app.get("/api/v1", (req, res) => {
+    res.send(users)
 })
 
-const PORT = 8080
 app.listen(PORT, () => console.log(`Server Started at : http://localhost:${PORT}`))

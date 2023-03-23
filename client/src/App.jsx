@@ -1,17 +1,35 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import axios from 'axios'
 
 function App() {
+  const [users, setUsers] = useState([])
+  const urlWithProxy = "/api/v1"
 
   useEffect(() => {
-    fetch('/api').then(
-      response => {return response.json()}
-    ).then(data => console.log(data)
-    ).catch((err) => {console.log(err)})
-  })
+    axios
+      .get(urlWithProxy)
+      .then(res => setUsers(res.data))
+      .catch(err => console.error(err))
+  }, [])
 
   return (
-    <h1>Hello</h1>
+    <>
+      <h1>All Users: </h1>
+      <div className='App'>
+
+        {
+          users.map(user => (
+            <div key={user.id}>
+              <h2>{user.name}</h2>
+              <p>{user.age}</p>
+            </div>
+          ))
+        }
+
+      </div>
+    </>
+
   )
 }
 
